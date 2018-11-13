@@ -17,3 +17,5 @@ if __name__ == '__main__':
     print_path_variable()
     # print all identifiers from sys
     print dir(sys)
+    # print all identifiers for current module
+    print dir()
