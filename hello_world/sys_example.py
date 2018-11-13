@@ -15,3 +15,5 @@ def print_path_variable():
 if __name__ == '__main__':
     print_console_arguments()
     print_path_variable()
+    # print all identifiers from sys
+    print dir(sys)
