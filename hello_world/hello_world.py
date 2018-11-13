@@ -1,3 +1,6 @@
+__version__ = '0.1'
+
+
 def hello():
     """Method return <<hello world>>"""
     return "Hello world!"
