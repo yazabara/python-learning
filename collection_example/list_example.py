@@ -1,10 +1,10 @@
 some_list = ['apple', 'banana', 'orange', 'pineapple']
 
 
-def compare(str1, str2):
+def compare(str1):
     if str1 is None:
         return -1
-    return len(str1) - len(str2)
+    return len(str1)
 
 
 def custom_filter(value):
@@ -12,15 +12,15 @@ def custom_filter(value):
 
 
 if __name__ == '__main__':
-    print some_list
+    print(some_list)
     some_list.sort()
-    print some_list
+    print(some_list)
     some_list.reverse()
-    print some_list
+    print(some_list)
     some_list.append('watermelon')
     some_list.append(None)
     # function returns new sorted list (using comparator)
-    some_list = sorted(some_list, cmp=compare)
-    print some_list
-    print 'watermelon' in some_list
-    print filter(custom_filter, some_list)
+    some_list = sorted(some_list, key=compare)
+    print(some_list)
+    print('watermelon' in some_list)
+    print(list(filter(custom_filter, some_list)))
