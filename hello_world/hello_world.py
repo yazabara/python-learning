@@ -8,4 +8,4 @@ def hello():
 
 # start web application if run as hello world.py (not module)
 if __name__ == '__main__':
-    print hello()
+    print(hello())

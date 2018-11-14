@@ -28,7 +28,7 @@ def __log(message, level):
         return
     if level not in __level_messages or level is Level.OFF:
         return
-    print "{} {} : {}".format(datetime.datetime.now(), __level_messages[level], message)
+    print("{} {} : {}".format(datetime.datetime.now(), __level_messages[level], message))
 
 
 def info(message):
