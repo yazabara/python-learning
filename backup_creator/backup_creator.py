@@ -16,7 +16,10 @@ class Backup(object):
         target_name = "{}{}{}{}{}.zip" \
             .format(self.config.target, os.sep, self.config.comment.replace(' ', '_'), os.sep, time.strftime("%Y%m%d"))
 
-        # command = os.system("zip -qr {} {}".format(target_name, self.config.source)) == 0:
+        # Unix
+        # command = os.system("zip -qr {} {}".format(target_name, self.config.source))
+
+        # Win
         command = "Compress-Archive {} {}".format(self.config.source, target_name)
         if os.system(command) == 0:
             log.info("Backup copy was successfully created: {}".format(target_name))
