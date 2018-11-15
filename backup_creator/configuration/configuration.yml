@@ -1,0 +1,4 @@
+backup:
+  source: F:\\test
+  target: F:\\archive
+  comment: comment

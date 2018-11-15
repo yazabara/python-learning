@@ -35,6 +35,10 @@ def info(message):
     __log(message, Level.INFO)
 
 
+def error(message):
+    __log(message, Level.ERROR)
+
+
 if __name__ == '__main__':
     __log("No message", Level.OFF)
     __log("This is a FATAL message", Level.FATAL)
