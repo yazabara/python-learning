@@ -1,4 +1,5 @@
 import os
+import platform
 import time
 
 # TODO is import correct?
@@ -16,15 +17,20 @@ class Backup(object):
         target_name = "{}{}{}{}{}.zip" \
             .format(self.config.target, os.sep, self.config.comment.replace(' ', '_'), os.sep, time.strftime("%Y%m%d"))
 
-        # Unix
-        # command = os.system("zip -qr {} {}".format(target_name, self.config.source))
+        command = Backup.__create_zip_command(self.config.source, target_name)
 
-        # Win
-        command = "Compress-Archive {} {}".format(self.config.source, target_name)
         if os.system(command) == 0:
             log.info("Backup copy was successfully created: {}".format(target_name))
         else:
             log.error("Backup wasn't created from {}".format(self.config.source))
+
+    @staticmethod
+    def __create_zip_command(source, target):
+        if platform.system() is 'Linux':
+            return "zip -qr {} {}".format(target, source)
+        if platform.system() is 'Windows':
+            return "Compress-Archive {} {}".format(source, target)
+        raise Exception('Application doesn\'t support OS {}'.format(platform.system()))
 
 
 if __name__ == '__main__':
