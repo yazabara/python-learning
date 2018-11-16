@@ -15,8 +15,8 @@ def is_blank(s):
     return False
 
 
-def get_str(input):
-    if isinstance(input, str):
-        return input
+def get_str(in_argument):
+    if isinstance(in_argument, str):
+        return in_argument
     else:
-        return str(input)
+        return str(in_argument)
