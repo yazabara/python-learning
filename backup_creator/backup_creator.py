@@ -16,8 +16,8 @@ class Backup(object):
     def backup(self):
         # building configuration. Main source - console. additional(default) - yaml configuration
         self.__config = ConfigBuilder() \
-            .from_console(True) \
-            .from_yaml('configuration/configuration.yml', True) \
+            .from_console() \
+            .from_yaml('configuration/configuration.yml', rewrite_if_absent=True) \
             .get_configuration()
 
         target_name = self.__build_target_path()
@@ -37,4 +37,4 @@ class Backup(object):
 
 if __name__ == '__main__':
     Backup().backup()
-    input("Press Enter to continue...")
+    # input("Press Enter to continue...")
