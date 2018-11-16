@@ -12,3 +12,6 @@ class BackupConfig(object):
         if is_blank(self.source) or is_blank(self.target):
             return True
         return False
+
+    def __str__(self) -> str:
+        return "source: {}, target: {}, comment: {}".format(self.source, self.target, self.comment)
