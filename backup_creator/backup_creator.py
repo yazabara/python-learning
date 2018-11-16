@@ -1,39 +1,40 @@
 import os
-import platform
 import time
 
-# TODO is import correct?
-from configuration.backup_config import BackupConfig
+from configuration.config_builder import ConfigBuilder
+from zip_runner import ZipRunner
 
 from simple_log import simple_log as log
+from string_utils.string_utils import get_str
 
 
 class Backup(object):
 
-    def __init__(self, config):
-        self.config = config
+    def __init__(self):
+        self.__config = None
 
     def backup(self):
-        target_name = "{}{}{}{}{}.zip" \
-            .format(self.config.target, os.sep, self.config.comment.replace(' ', '_'), os.sep, time.strftime("%Y%m%d"))
+        # building configuration. Main source - console. additional(default) - yaml configuration
+        self.__config = ConfigBuilder() \
+            .from_console(True) \
+            .from_yaml('configuration/configuration.yml', True) \
+            .get_configuration()
 
-        command = Backup.__create_zip_command(self.config.source, target_name)
+        target_name = self.__build_target_path()
 
-        if os.system(command) == 0:
+        if ZipRunner.run_zip(self.__config.source, target_name):
             log.info("Backup copy was successfully created: {}".format(target_name))
         else:
-            log.error("Backup wasn't created from {}".format(self.config.source))
+            log.error("Backup wasn't created for source {}".format(self.__config.source))
 
-    @staticmethod
-    def __create_zip_command(source, target):
-        if platform.system() is 'Linux':
-            return "zip -qr {} {}".format(target, source)
-        if platform.system() is 'Windows':
-            return "Compress-Archive {} {}".format(source, target)
-        raise Exception('Application doesn\'t support OS {}'.format(platform.system()))
+    def __build_target_path(self):
+        return "{}{}{}-{}.zip" \
+            .format(self.__config.target,
+                    os.sep,
+                    get_str(self.__config.comment).replace(' ', '_'),
+                    time.strftime("%Y%m%d"))
 
 
 if __name__ == '__main__':
-    backup = Backup(BackupConfig('configuration/configuration.yml'))
-    backup.backup()
+    Backup().backup()
     input("Press Enter to continue...")
