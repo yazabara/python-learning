@@ -2,10 +2,9 @@ import os
 import time
 
 from configuration.config_builder import ConfigBuilder
-from zip_runner import ZipRunner
-
 from simple_log import simple_log as log
 from string_utils.string_utils import get_str
+from zip_runner import ZipRunner
 
 
 class Backup(object):
@@ -17,7 +16,7 @@ class Backup(object):
         # building configuration. Main source - console. additional(default) - yaml configuration
         self.__config = ConfigBuilder() \
             .from_console() \
-            .from_yaml('configuration/configuration.yml', rewrite_if_absent=True) \
+            .from_yaml('configuration/configuration.yml') \
             .get_configuration()
 
         target_name = self.__build_target_path()

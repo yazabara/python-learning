@@ -8,20 +8,18 @@ class ConfigBuilder(object):
         self.__config = None
         self.__extract_factory = ExtractFactory()
 
-    def from_yaml(self, path, rewrite_if_absent=False):
-        valid = ConfigValidator(self.__config).is_valid()
+    def from_yaml(self, path):
         # rewrite configuration if it absent
-        if (not valid) or (rewrite_if_absent and not valid):
+        if not ConfigValidator(self.__config).is_valid():
             self.__config = self \
                 .__extract_factory \
                 .get_yaml_extractor(path) \
                 .extract()
         return self
 
-    def from_console(self, rewrite_if_absent=False):
-        valid = ConfigValidator(self.__config).is_valid()
+    def from_console(self):
         # rewrite configuration if it absent
-        if (not valid) or (rewrite_if_absent and not valid):
+        if not ConfigValidator(self.__config).is_valid():
             self.__config = self \
                 .__extract_factory \
                 .get_console_extractor() \
