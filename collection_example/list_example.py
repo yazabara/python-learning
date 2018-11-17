@@ -22,5 +22,9 @@ if __name__ == '__main__':
     # function returns new sorted list (using comparator)
     some_list = sorted(some_list, key=compare)
     print(some_list)
+    some_list = sorted(some_list, key=lambda val: -1 if val is None else len(val))
+    print(some_list)
     print('watermelon' in some_list)
     print(list(filter(custom_filter, some_list)))
+    generated = [2 * i for i in (0, 10, 100, 200) if i == 10]
+    print(generated)
